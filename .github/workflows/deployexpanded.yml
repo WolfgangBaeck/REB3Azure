@@ -1,4 +1,4 @@
-name: Deployment
+name: Deployment Expanded
 on:  
   workflow_dispatch:
   push:
