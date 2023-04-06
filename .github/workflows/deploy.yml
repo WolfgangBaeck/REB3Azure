@@ -13,7 +13,7 @@ jobs:
       - name: Get code for delta client
         uses: actions/checkout@v3
         with:
-          repository: REB3AZURE
+          repository: WolfgangBaeck/REB3AZURE
           path: ./r3dev-delta
       - name: Output contents on runner
         run: ls
