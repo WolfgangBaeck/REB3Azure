@@ -14,6 +14,7 @@ resource "azurerm_windows_virtual_machine_scale_set" "appset" {
     storage_account_type = "Standard_LRS"
   }
 
+
   source_image_reference {
     publisher = "MicrosoftWindowsServer"
     offer     = "WindowsServer"
