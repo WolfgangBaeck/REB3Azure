@@ -9,7 +9,6 @@ resource "azurerm_windows_virtual_machine_scale_set" "appset" {
   upgrade_mode        = "Automatic"
   tags                = var.tags
 
-
   os_disk {
     caching              = "ReadWrite"
     storage_account_type = "Standard_LRS"
