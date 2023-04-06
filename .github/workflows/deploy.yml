@@ -6,7 +6,7 @@ on:
     branches: 
       - main
     paths:
-      - modules/*
+      - '**.tf'
 jobs:
   delta:
     runs-on: ubuntu-latest
