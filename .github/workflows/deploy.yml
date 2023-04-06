@@ -19,6 +19,8 @@ jobs:
         with:
           repository: WolfgangBaeck/REB3AZURE
           path: ./.github/actions/terraform
+      - name: Output filesystem
+        run ls -la
       - name: Run Terraform
         uses: ./.github/actions/terraform
   epsilon:
