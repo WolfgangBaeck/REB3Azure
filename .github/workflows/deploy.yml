@@ -17,3 +17,23 @@ jobs:
           path: ./r3dev-delta
       - name: Output contents on runner
         run: ls
+  epsilon:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code for delta client
+        uses: actions/checkout@v3
+        with:
+          repository: WolfgangBaeck/REB3AZURE
+          path: ./r3dev-epsilon
+      - name: Output contents on runner
+        run: ls
+  zeta:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code for delta client
+        uses: actions/checkout@v3
+        with:
+          repository: WolfgangBaeck/REB3AZURE
+          path: ./r3dev-zeta
+      - name: Output contents on runner
+        run: ls
