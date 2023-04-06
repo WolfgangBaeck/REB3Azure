@@ -20,7 +20,6 @@ resource "azurerm_windows_virtual_machine_scale_set" "appset" {
     sku       = "2019-Datacenter"
     version   = "latest"
   }
-  
 
   network_interface {
     name    = "scaleset-interface"
