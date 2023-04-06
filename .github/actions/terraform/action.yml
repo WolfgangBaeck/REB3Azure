@@ -1,21 +1,9 @@
 name: 'Run Terraform'
 description: 'Execute Terraform for an input client folder.'
-inputs:
-  repository:
-    description: 'Name of the repository from which to check out'
-  client:
-    description: 'Client folder to check out and run'
-    required: 'true'
+
 runs:
   using: 'composite'
   steps:
-  # Checkout the repository to the GitHub Actions runner
-  - name: Checkout
-    uses: actions/checkout@v3
-    with:
-      repository: inputs.repository
-      path: inputs.client
-
   # Install the preferred version of Terraform CLI 
   - name: Setup Terraform
     uses: hashicorp/setup-terraform@v2

@@ -9,6 +9,11 @@ jobs:
   delta:
     runs-on: ubuntu-latest
     steps:
+      - name: Get code for delta client
+        uses: actions/checkout@v3
+        with:
+          repository: WolfgangBaeck/REB3AZURE
+          path: ./r3dev-delta
       - name: Run Terraform
         uses: ./.github/actions/terraform
         with:
@@ -17,7 +22,7 @@ jobs:
   epsilon:
     runs-on: ubuntu-latest
     steps:
-      - name: Get code for delta client
+      - name: Get code for epsilon client
         uses: actions/checkout@v3
         with:
           repository: WolfgangBaeck/REB3AZURE
@@ -27,7 +32,7 @@ jobs:
   zeta:
     runs-on: ubuntu-latest
     steps:
-      - name: Get code for delta client
+      - name: Get code for zeta client
         uses: actions/checkout@v3
         with:
           repository: WolfgangBaeck/REB3AZURE
