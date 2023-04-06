@@ -9,13 +9,11 @@ jobs:
   delta:
     runs-on: ubuntu-latest
     steps:
-      - name: Get code for delta client
-        uses: actions/checkout@v3
+      - name: Run Terraform
+        uses: ./.github/actions/terraform
         with:
           repository: WolfgangBaeck/REB3AZURE
-          path: r3dev-delta
-      - name: Output contents on runner
-        run: ls
+          client: ./r3dev-epsilon
   epsilon:
     runs-on: ubuntu-latest
     steps:
