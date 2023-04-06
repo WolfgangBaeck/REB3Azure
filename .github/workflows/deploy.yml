@@ -32,7 +32,7 @@ jobs:
           repository: WolfgangBaeck/REB3AZURE
           path: ./r3dev-epsilon
       - name: Output contents on runner
-        run: ls
+        run: ls -l -R
   zeta:
     runs-on: ubuntu-latest
     steps:
