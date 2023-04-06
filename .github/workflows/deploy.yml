@@ -1,7 +1,9 @@
 name: Deployment
-on:   
-  paths:
-    - 'modules'
+on:  
+  push:
+    branches: main
+    paths:
+      - 'modules'
 jobs:
   delta:
     runs-on: ubuntu-latest
