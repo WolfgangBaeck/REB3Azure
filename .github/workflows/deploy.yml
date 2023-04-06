@@ -1,0 +1,15 @@
+name: Deployment
+on:   
+  paths:
+    - 'modules'
+jobs:
+  delta:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code for delta client
+        uses: actions/checkout@v3
+        with:
+          repository: REB3AZURE
+          path: ./r3dev-delta
+      - name: Output contents on runner
+        run: ls
