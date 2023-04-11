@@ -8,6 +8,7 @@ variable "location" {
   description = "The region for the deployment"
   default     = "East US 2"
 }
+
 variable "settings" {
   type = map(string)
   default = {
