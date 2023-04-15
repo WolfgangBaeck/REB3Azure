@@ -1,17 +1,14 @@
-name: Deployment
+name: Deployment Composite
 on:
   workflow_dispatch:
 jobs:
-  delta:
+  walm:
     runs-on: ubuntu-latest
     steps:
-      - name: Get code for delta client
-        uses: Bhacaz/checkout-files@v2
-        with:
-          files: r3us-delta
-      - name: Get code from modules folder
-        uses: Bhacaz/checkout-files@v2
-        with:
-          files: modules
-      - name: Output filesystem
-        run: ls -R
+      - name: Get Repository Code
+        uses: actions/checkout@v3
+      - name: Show Files
+        run: ls -l -R
+      - name: Call Terraform Composite Action
+        uses: ./.github/actions/terraform
+          with: "r3us-walm"
