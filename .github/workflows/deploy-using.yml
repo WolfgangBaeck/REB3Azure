@@ -1,4 +1,4 @@
-name: Deployment Expanded
+name: Deployment TF Reuse
 on:  
   workflow_dispatch:
 jobs:
