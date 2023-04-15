@@ -11,6 +11,8 @@ jobs:
   Terraform:
     runs-on: ubuntu-latest
     steps:
+      - name: Show Filesystem
+        run: ls -R
       # Install the preferred version of Terraform CLI 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
