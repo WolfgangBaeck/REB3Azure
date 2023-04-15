@@ -1,0 +1,13 @@
+name: Deployment Expanded
+on:  
+  workflow_dispatch:
+jobs:
+  walm:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Repository Code
+        uses: actions/checkout@v3
+      - name: Use TF Workflow
+        uses: ./.github/workflows/reuse-terraform.yml
+        with:
+          working-folder: r3us-walm
