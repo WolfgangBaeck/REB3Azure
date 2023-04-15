@@ -3,6 +3,7 @@ on:
   workflow_dispatch:
 jobs:
   walm:
+    environment: Development
     uses: ./.github/workflows/reuse-terraform.yml
     with:
       working-folder: r3us-walm
