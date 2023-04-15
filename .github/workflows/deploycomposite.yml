@@ -11,5 +11,5 @@ jobs:
         run: ls -l -R
       - name: Call Terraform Composite Action
         uses: ./.github/actions/terraform
-          with: 
-            working-folder: r3us-walm
+        with: 
+          working-folder: r3us-walm
