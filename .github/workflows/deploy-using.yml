@@ -6,4 +6,4 @@ jobs:
     uses: ./.github/workflows/reuse-terraform.yml
     with:
       working-folder: r3us-walm
-    environment: Development    
+
