@@ -5,19 +5,19 @@ inputs:
     description: 'Client folder to work on'
     required: 'true'
 
-defaults:
-  run:
-    shell: bash
+
 runs:
   using: 'composite'
   steps:
   - name: set working folder
     run: cd ${{inputs.working-folder}}
+    shell: bash
   # Install the preferred version of Terraform CLI 
   - name: Setup Terraform
     uses: hashicorp/setup-terraform@v2
     with:
       terraform_version: 1.1.7
+    shell: bash
 
   ### Replace tokens in any .tf and .tfvars files
   - name: Replace tokens
@@ -29,6 +29,7 @@ runs:
     env:
       CDN: http://christianbaeck.com
       CALLBACK: somevalue
+    shell: bash
 
   # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
   - name: Terraform Init
@@ -41,7 +42,7 @@ runs:
     run: |
       cd ${{ inputs.working-folder}}
       terraform init 
-
+    shell: bash
     # On push to main, build or change infrastructure according to Terraform configuration files
   - name: Terraform Plan
     env:
@@ -52,3 +53,4 @@ runs:
     run: |
       cd ${{ inputs.working-folder}}
       terraform plan -no-color
+    shell: bash      
