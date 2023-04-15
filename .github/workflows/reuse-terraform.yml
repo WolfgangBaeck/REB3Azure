@@ -7,14 +7,14 @@ on:
         required: true
         type: string
 
-defaults:
-  run:
-    shell: bash
-    working-directory: inputs.working-folder
 
 jobs:
   Terraform:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ${{ inputs.working-folder }}
     steps:
       - name: Get Repository Code
         uses: actions/checkout@v3
