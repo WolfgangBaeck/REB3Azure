@@ -7,11 +7,10 @@ jobs:
     steps:
     - name: Get Repository Code
       uses: actions/checkout@v3
-      id: prep
     - name: Show Files
       run: ls -l -R
   walm:
-    needs: prep
+    needs: prepare
     uses: WolfgangBaeck/REB3Azure/.github/workflows/reuse-terraform.yml@main
     with:
       working-folder: r3us-walm
