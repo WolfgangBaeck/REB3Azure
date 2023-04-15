@@ -2,7 +2,7 @@ name: Deployment Expanded
 on:  
   workflow_dispatch:
 jobs:
-  delta:
+  walm:
     runs-on: ubuntu-latest
     steps:
       - name: Get Repository Code
@@ -23,7 +23,7 @@ jobs:
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
         run: |
-          cd r3dev-delta
+          cd r3us-walm
           terraform init 
 
       # Run a terraform plan 
@@ -35,5 +35,5 @@ jobs:
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
         run: |
-          cd r3dev-delta
+          cd r3us-walm
           terraform plan -no-color
