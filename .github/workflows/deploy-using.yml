@@ -2,8 +2,8 @@ name: Deployment TF Reuse
 on:  
   workflow_dispatch:
 jobs:
-  environment: Development    
   walm:
     uses: ./.github/workflows/reuse-terraform.yml
     with:
       working-folder: r3us-walm
+    environment: Development    
