@@ -3,11 +3,11 @@ on:
   workflow_dispatch:
 jobs:
   prepare:
-    id: prep
     runs-on: ubuntu-latest
     steps:
     - name: Get Repository Code
       uses: actions/checkout@v3
+      id: prep
     - name: Show Files
       run: ls -l -R
   walm:
