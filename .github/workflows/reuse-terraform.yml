@@ -7,12 +7,19 @@ on:
         required: true
         type: string
 
+defaults:
+  run:
+    shell: bash
+    working-directory: ${{ inputs.working-folder }}
+
 jobs:
   Terraform:
     runs-on: ubuntu-latest
     steps:
-      - name: Show Filesystem
-        run: ls -R
+      - name: Get Repository Code
+        uses: actions/checkout@v3
+      - name: Show Files
+        run: ls -l -R
       # Install the preferred version of Terraform CLI 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
@@ -20,12 +27,9 @@ jobs:
           terraform_version: 1.1.7
       # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
       - name: Terraform Init
-        id: init
         env:
           ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
           ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-        run: |
-          cd ${{ inputs.working-folder}}
-          terraform init 
+        run: terraform init 
