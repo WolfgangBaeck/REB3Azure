@@ -7,6 +7,8 @@ jobs:
     steps:
       - name: Get Repository Code
         uses: actions/checkout@v3
+      - name: Show Filesystem
+        run: ls -R
       - name: Use TF Workflow
         uses: ./.github/workflows/reuse-terraform.yml
         with:
