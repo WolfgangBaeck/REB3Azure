@@ -64,7 +64,7 @@ module "virtualmachines" {
     azurerm_key_vault.kv1
   ]
 }
-
+/*
 module "dbservers" {
   source              = "./../modules/databases"
   location            = var.location
@@ -82,5 +82,5 @@ module "dbservers" {
   tags                = var.common_tags
   depends_on          = [azurerm_private_dns_zone_virtual_network_link.dnsvnetlink]
 }
-
+*/
 
