@@ -7,4 +7,9 @@ jobs:
     uses: ./.github/workflows/reuse-terraform.yml
     with:
       working-folder: r3us-walm
+      secrets:
+        ACID: ${{ secrets.ARM_CLIENT_ID }}
+        ACS: ${{ secrets.ARM_CLIENT_SECRET }}
+        ATID: ${{ secrets.ARM_TENANT_ID }}
+        ASID: ${{ secrets.ARM_SUBSCRIPTION_ID }}    
 
