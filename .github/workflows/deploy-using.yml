@@ -17,7 +17,7 @@ jobs:
     uses: ./.github/workflows/reuse-terraform.yml
     with:
       environment: UAT
-      working-folder: r3us-dev
+      working-folder: r3dev-delta
     secrets:
       inherit
 
