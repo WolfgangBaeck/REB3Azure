@@ -1,4 +1,4 @@
-name: Deployment TF Reuse
+name: Dev-Deploy-All
 on:  
   workflow_dispatch:
 jobs:

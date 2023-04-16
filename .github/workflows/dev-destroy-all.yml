@@ -1,4 +1,4 @@
-name: Destroy TF Reuse
+name: Dev-Destroy-All
 on:  
   workflow_dispatch:
 jobs:

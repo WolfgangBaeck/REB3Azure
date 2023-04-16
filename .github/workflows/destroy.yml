@@ -1,4 +1,4 @@
-name: Reusable Terraform Action
+name: Reusable Terraform Destroy
 on: 
   workflow_call:
     inputs:
