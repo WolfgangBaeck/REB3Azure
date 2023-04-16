@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
 jobs:
   walm:
-    name: Deploy to Dev
+    name: Deploy to UAT
     uses: ./.github/workflows/reuse-terraform.yml
     with:
       environment: UAT

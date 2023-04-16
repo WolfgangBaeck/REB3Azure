@@ -10,14 +10,25 @@ on:
         description: The name of the client folder to process
         required: true
         type: string
-
+      secrets:
+        PASSWORD:
+          required: true
+        ARM_CLIENT_ID: 
+          required: true
+        ARM_CLIENT_SECRET: 
+          required: true
+        ARM_TENANT_ID: 
+          required: true
+        ARM_SUBSCRIPTION_ID: 
+          required: true
 
 env:
   ARM_CLIENT_ID: ${{ secrets.ACID }}
   ARM_CLIENT_SECRET: ${{ secrets.ACS }}
   ARM_TENANT_ID: ${{ secrets.ATID }}
-  ARM_SUBSCRIPTION_ID: ${{ secrets.ASID }}    
-  
+  ARM_SUBSCRIPTION_ID: ${{ secrets.ASID }}            
+  PASSWORD: ${{ secrets.PASSWORD }}
+
 jobs:
   Terraform:
     name: Terraform deploy to ${{ inputs.environment }}
@@ -30,6 +41,14 @@ jobs:
         working-directory: ${{ inputs.working-folder }}
 
     steps:
+      - name: Show password
+        run: |
+        echo Password is $PASSWORD
+        if [[ $PASSWORD == *"password"* ]]; then
+          echo "This is the UAT password!"
+        else
+          echo "This is NOT the UAT password!"
+        fi
       - name: Get Repository Code
         uses: actions/checkout@v3
       - name: Show Files
