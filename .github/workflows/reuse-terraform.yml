@@ -40,7 +40,7 @@ jobs:
       - name: Terraform Init
         run: terraform init 
 
-      # Run a terraform plan 
-      - name: Terraform Plan
+      # Run a terraform apply 
+      - name: Terraform apply
         id: plan
-        run: terraform plan -no-color
+        run: terraform apply -auto-approve
