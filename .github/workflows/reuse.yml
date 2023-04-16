@@ -23,9 +23,9 @@ jobs:
       run: |
         echo Password is $PASSWORD
         if [[ $PASSWORD == *"password"* ]]; then
-          echo "This is the PROD password!"
+          echo "This is the UAT password!"
         else
-          echo "This is NOT the PROD password!"
+          echo "This is NOT the UAT password!"
         fi
       env:
         PASSWORD: ${{ secrets.PASSWORD }}
