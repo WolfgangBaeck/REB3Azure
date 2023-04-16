@@ -9,10 +9,7 @@ jobs:
       environment: Development
       working-folder: r3us-walm
     secrets:
-      ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-      ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-      ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
-      ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}    
+      inherit
       
   deploy_prod:
     name: Deploy to Prod
@@ -22,8 +19,5 @@ jobs:
       environment: UAT
       working-folder: r3us-dev
     secrets:
-      ARM_CLIENT_ID: ${{ secrets.ACID }}
-      ARM_CLIENT_SECRET: ${{ secrets.ACS }}
-      ARM_TENANT_ID: ${{ secrets.ATID }}
-      ARM_SUBSCRIPTION_ID: ${{ secrets.ASID }}    
+      inherit
 
