@@ -9,7 +9,7 @@ on:
         description: environment to deploy to
         required: true
     secrets:
-      inherit all
+      inherit
 
 jobs:
   deploy:
