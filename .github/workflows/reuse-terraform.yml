@@ -2,13 +2,13 @@ name: Reusable Terraform Action
 on: 
   workflow_call:
     inputs:
+      environment:
+        description: "Environment context in which to run the Terraform process."
+        required: true    
       working-folder:
         description: The name of the client folder to process
         required: true
         type: string
-      environment:
-        description: "Environment context in which to run the Terraform process."
-        required: true
       secrets:
         ARM_CLIENT_ID: 
           required: true
