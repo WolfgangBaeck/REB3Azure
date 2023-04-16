@@ -17,7 +17,6 @@ env:
   ARM_CLIENT_SECRET: ${{ secrets.ACS }}
   ARM_TENANT_ID: ${{ secrets.ATID }}
   ARM_SUBSCRIPTION_ID: ${{ secrets.ASID }}            
-  PASSWORD: ${{ secrets.PASSWORD }}
 
 jobs:
   Terraform:
@@ -31,14 +30,6 @@ jobs:
         working-directory: ${{ inputs.working-folder }}
 
     steps:
-      - name: Show password
-        run: |
-          echo Password is $PASSWORD
-          if [[ $PASSWORD == *"password"* ]]; then
-            echo "This is the UAT password!"
-          else
-            echo "This is NOT the UAT password!"
-          fi
       - name: Get Repository Code
         uses: actions/checkout@v3
       - name: Show Files
