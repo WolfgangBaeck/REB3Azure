@@ -3,13 +3,21 @@ on:
   workflow_dispatch:
 jobs:
   walm:
-    environment: Development
+    name: Deploy to Dev
     uses: ./.github/workflows/reuse-terraform.yml
     with:
+      environment: Development
       working-folder: r3us-walm
-      secrets:
-        ACID: ${{ secrets.ARM_CLIENT_ID }}
-        ACS: ${{ secrets.ARM_CLIENT_SECRET }}
-        ATID: ${{ secrets.ARM_TENANT_ID }}
-        ASID: ${{ secrets.ARM_SUBSCRIPTION_ID }}    
+    secrets:
+      inherit
+      
+  deploy_prod:
+    name: Deploy to Prod
+    needs: deploy_dev
+    uses: ./.github/workflows/reuse-terraform.yml
+    with:
+      environment: UAT
+      working-folder: r3us-dev
+    secrets:
+      inherit
 

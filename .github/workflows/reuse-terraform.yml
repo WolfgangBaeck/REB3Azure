@@ -6,14 +6,16 @@ on:
         description: The name of the client folder to process
         required: true
         type: string
+      environment:
+        description: "Environment context in which to run the Terraform process."
       secrets:
-        ACID: 
+        ARM_CLIENT_ID: 
           required: true
-        ACS: 
+        ARM_CLIENT_SECRET: 
           required: true
-        ATID: 
+        ARM_TENANT_ID: 
           required: true
-        ASID: 
+        ARM_SUBSCRIPTION_ID: 
           required: true
 
 env:
@@ -23,7 +25,9 @@ env:
   ARM_SUBSCRIPTION_ID: ${{ secrets.ASID }}    
 jobs:
   Terraform:
+    name: Terraform deploy to ${{ inputs.environment }}
     runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
     defaults:
       run:
         shell: bash
