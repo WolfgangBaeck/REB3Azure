@@ -6,7 +6,7 @@ jobs:
     name: Deploy to UAT
     uses: ./.github/workflows/reuse-terraform.yml
     with:
-      environment: UAT
+      environment: Development
       working-folder: r3us-walm
     secrets:
       inherit
