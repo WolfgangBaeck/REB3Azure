@@ -4,7 +4,7 @@ on:
 jobs:
   walm:
     name: Deploy to UAT
-    uses: ./.github/workflows/reuse-terraform.yml
+    uses: ./.github/workflows/deploy.yml
     with:
       environment: Development
       working-folder: r3us-walm

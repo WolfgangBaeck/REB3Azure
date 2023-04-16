@@ -1,5 +1,5 @@
 variable "subscription_id" {
-  type        = string
+  type = string
   description = "The azure subscription id for this retail client ideally provided via .tfvars file"
 }
 
@@ -12,7 +12,7 @@ variable "location" {
 variable "settings" {
   type = map(string)
   default = {
-    basestack   = "r3us"
+    basestack   = "r3dev"
     environemnt = "epsilon"
   }
 }
@@ -21,7 +21,7 @@ variable "virtual_network" {
   type        = map(any)
   description = "Name of network and address space in CIDR"
   default = {
-    name           = "app-network"
+    name           = "vnet"
     address_space  = "10.2.0.0/16"
     address_prefix = "10.2"
   }
@@ -41,11 +41,48 @@ variable "subnet_size" {
 variable "common_tags" {
   type = map(string)
   default = {
-    BillingEnvironment = "r3us"
+    BillingEnvironment = "r3dev"
     BillingRetailer    = "epsilon"
     BillingApplication = "REB3"
   }
 }
+
+/*
+  Scaleset VM settings
+*/
+variable "number_of_machines" {
+  type        = number
+  default     = 3
+  description = "number of machines to place into the availability set"
+}
+
+/*
+  Flexible DB Settings
+*/
+
+variable "admin_login" {
+  type    = string
+  default = "wolfgang"
+}
+
+variable "admin_pwd" {
+  type    = string
+  default = "!Wolf123Gang@"
+}
+
+variable "storage" {
+  type        = number
+  default     = 32768
+  description = "db storage reserved in MB"
+}
+
+variable "db_version" {
+  type    = string
+  default = "12"
+}
+/*
+  Storage Account Container Settings
+*/
 
 variable "private_containers" {
   type        = list(string)

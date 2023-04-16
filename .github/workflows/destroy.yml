@@ -1,0 +1,46 @@
+name: Reusable Terraform Action
+on: 
+  workflow_call:
+    inputs:
+      environment:
+        description: "Environment context in which to run the Terraform process."
+        required: true    
+        type: string
+      working-folder:
+        description: The name of the client folder to process
+        required: true
+        type: string
+   
+
+jobs:
+  Terraform:
+    name: Terraform destroy ${{ inputs.environment }}
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+
+    env:
+      ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+      ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}    
+
+    defaults:
+      run:
+        shell: bash
+        working-directory: ${{ inputs.working-folder }}
+
+    steps:
+      - name: Get Repository Code
+        uses: actions/checkout@v3
+      # Install the preferred version of Terraform CLI 
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.1.7
+      # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+      - name: Terraform Init   
+        run: terraform init 
+ 
+      # Run a terraform destroy 
+      - name: Terraform destroy
+        run: terraform destroy -auto-approve

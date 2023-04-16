@@ -1,0 +1,12 @@
+name: Destroy TF Reuse
+on:  
+  workflow_dispatch:
+jobs:
+  walm:
+    name: Destroy development
+    uses: ./.github/workflows/destroy.yml
+    with:
+      environment: Development
+      working-folder: r3us-walm
+    secrets:
+      inherit

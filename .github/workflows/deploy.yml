@@ -14,7 +14,7 @@ on:
 
 jobs:
   Terraform:
-    name: Terraform deploy to ${{ inputs.environment }}
+    name: Terraform deploy ${{ inputs.environment }}
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
 

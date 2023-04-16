@@ -12,7 +12,7 @@ variable "location" {
 variable "settings" {
   type = map(string)
   default = {
-    basestack   = "r3us"
+    basestack   = "r3dev"
     environemnt = "delta"
   }
 }
@@ -41,7 +41,7 @@ variable "subnet_size" {
 variable "common_tags" {
   type = map(string)
   default = {
-    BillingEnvironment = "r3us"
+    BillingEnvironment = "r3dev"
     BillingRetailer    = "delta"
     BillingApplication = "REB3"
   }

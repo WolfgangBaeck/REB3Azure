@@ -22,3 +22,7 @@ output "subnets" {
 output "db_subnet_id" {
   value = module.client_network.subnets["DB-Delegated"].id
 }
+
+output "databases" {
+  value = {for id in keys(module.dbservers.databases) : id => module.dbservers.databases[id].id }
+}

@@ -21,8 +21,8 @@ variable "virtual_network" {
   type        = map(any)
   description = "Name of network and address space in CIDR"
   default = {
-    name          = "app-network"
-    address_space = "10.11.0.0/16"
+    name           = "vnet"
+    address_space  = "10.11.0.0/16"
     address_prefix = "10.11"
   }
 }
@@ -37,11 +37,6 @@ variable "subnet_size" {
   default = "large"
 }
 
-variable "address_prefix" {
-  type    = string
-  default = "10.2"
-}
-
 
 variable "common_tags" {
   type = map(string)
@@ -52,14 +47,51 @@ variable "common_tags" {
   }
 }
 
+/*
+  Scaleset VM settings
+*/
+variable "number_of_machines" {
+  type        = number
+  default     = 3
+  description = "number of machines to place into the availability set"
+}
+
+/*
+  Flexible DB Settings
+*/
+
+variable "admin_login" {
+  type    = string
+  default = "wolfgang"
+}
+
+variable "admin_pwd" {
+  type    = string
+  default = "!Wolf123Gang@"
+}
+
+variable "storage" {
+  type        = number
+  default     = 32768
+  description = "db storage reserved in MB"
+}
+
+variable "db_version" {
+  type    = string
+  default = "12"
+}
+/*
+  Storage Account Container Settings
+*/
+
 variable "private_containers" {
-  type = list(string)
-  default = ["RdsBackupCont","ManagementStaticFilesCont","ManagementMediaFilesCont","ManagementMediaFilesBackupCont","ManagementCommFilesCont","ProcessingCommFilesCont","SftpCont","SftpBackupCont"]
+  type        = list(string)
+  default     = ["RdsBackupCont", "ManagementStaticFilesCont", "ManagementMediaFilesCont", "ManagementMediaFilesBackupCont", "ManagementCommFilesCont", "ProcessingCommFilesCont", "SftpCont", "SftpBackupCont"]
   description = "Name of the individual containers for the private storage account"
 }
 
 variable "public_containers" {
-  type = list(string)
-  default = ["Scripts","Data"]
+  type        = list(string)
+  default     = ["Scripts", "Data"]
   description = "Name of the individual containers for the public storage account"
 }

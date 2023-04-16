@@ -28,11 +28,11 @@ module "client_network" {
   location             = var.location
   resource_group_name  = azurerm_resource_group.appgrp.name
   virtual_network_name = azurerm_virtual_network.appnetwork.name
-  client_name    = var.client_name
-  subnet_size    = var.subnet_size
-  address_prefix = var.virtual_network.address_prefix
-  settings = var.settings
-  tags     = var.common_tags
+  client_name          = var.client_name
+  subnet_size          = var.subnet_size
+  address_prefix       = var.virtual_network.address_prefix
+  settings             = var.settings
+  tags                 = var.common_tags
 }
 
 
@@ -61,10 +61,26 @@ module "virtualmachines" {
   tags                                         = var.common_tags
   depends_on = [
     module.client_network,
-    azurerm_key_vault.kv1
+    azurerm_key_vault.kvOne
   ]
 }
-/*
+
+locals {
+  databases = {
+    management = {
+      name      = "mgmt"
+      collation = "en_US.utf8"
+      charset   = "utf8"
+    }
+    reporting = {
+      name      = "reports"
+      collation = "en_US.utf8"
+      charset   = "utf8"
+    }
+  }
+
+}
+
 module "dbservers" {
   source              = "./../modules/databases"
   location            = var.location
@@ -78,9 +94,10 @@ module "dbservers" {
   zone                = "1"
   storage             = var.storage
   sku_name            = "GP_Standard_D4s_v3"
+  server_databases    = local.databases
   settings            = var.settings
   tags                = var.common_tags
   depends_on          = [azurerm_private_dns_zone_virtual_network_link.dnsvnetlink]
 }
-*/
+
 
