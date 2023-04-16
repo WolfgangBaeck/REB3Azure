@@ -7,7 +7,7 @@ on:
 jobs:
   deploy_dev:
     name: Deploy to Dev
-    uses: colindembovsky/reusable-workflows-env-secrets/.github/workflows/reusable-deploy.yml@main
+    uses: ./.github/workflows/reuse.yml@main
     with:
       environment: Development
     secrets:
@@ -16,7 +16,7 @@ jobs:
   deploy_prod:
     name: Deploy to Prod
     needs: deploy_dev
-    uses: colindembovsky/reusable-workflows-env-secrets/.github/workflows/reusable-deploy.yml@main
+    uses: ./.github/workflows/reuse.yml@main
     with:
       environment: UAT
     secrets:
