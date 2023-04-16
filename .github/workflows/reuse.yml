@@ -9,8 +9,7 @@ on:
         description: environment to deploy to
         required: true
     secrets:
-      PASSWORD:
-        required: true
+      inherit all
 
 jobs:
   deploy:

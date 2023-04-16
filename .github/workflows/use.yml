@@ -20,5 +20,5 @@ jobs:
     with:
       environment: UAT
     secrets:
-      PASSWORD: ${{ secrets.PASSWORD }}
+      inherit
 
