@@ -12,6 +12,10 @@ jobs:
       environment: Development
     secrets:
       PASSWORD: ${{ secrets.PASSWORD }}
+      ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+      ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}          
       
   deploy_prod:
     name: Deploy to Prod
