@@ -43,12 +43,12 @@ jobs:
     steps:
       - name: Show password
         run: |
-        echo Password is $PASSWORD
-        if [[ $PASSWORD == *"password"* ]]; then
-          echo "This is the UAT password!"
-        else
-          echo "This is NOT the UAT password!"
-        fi
+          echo Password is $PASSWORD
+          if [[ $PASSWORD == *"password"* ]]; then
+            echo "This is the UAT password!"
+          else
+            echo "This is NOT the UAT password!"
+          fi
       - name: Get Repository Code
         uses: actions/checkout@v3
       - name: Show Files
