@@ -13,7 +13,7 @@ jobs:
       
   deploy_prod:
     name: Deploy to Prod
-    needs: deploy_dev
+    needs: walm
     uses: ./.github/workflows/reuse-terraform.yml
     with:
       environment: UAT
