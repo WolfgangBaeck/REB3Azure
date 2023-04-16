@@ -10,20 +10,19 @@ on:
         description: The name of the client folder to process
         required: true
         type: string
-
-
-env:
-  ARM_CLIENT_ID: ${{ secrets.ACID }}
-  ARM_CLIENT_SECRET: ${{ secrets.ACS }}
-  ARM_TENANT_ID: ${{ secrets.ATID }}
-  ARM_SUBSCRIPTION_ID: ${{ secrets.ASID }}            
+   
 
 jobs:
   Terraform:
     name: Terraform deploy to ${{ inputs.environment }}
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
-
+    env:
+      ARM_CLIENT_ID: ${{ secrets.ACID }}
+      ARM_CLIENT_SECRET: ${{ secrets.ACS }}
+      ARM_TENANT_ID: ${{ secrets.ATID }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.ASID }}         
+      
     defaults:
       run:
         shell: bash
