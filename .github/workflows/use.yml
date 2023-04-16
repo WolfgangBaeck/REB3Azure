@@ -1,0 +1,24 @@
+
+name: Deploy Pipeline
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy_dev:
+    name: Deploy to Dev
+    uses: colindembovsky/reusable-workflows-env-secrets/.github/workflows/reusable-deploy.yml@main
+    with:
+      environment: Development
+    secrets:
+      PASSWORD: ${{ secrets.PASSWORD }}
+      
+  deploy_prod:
+    name: Deploy to Prod
+    needs: deploy_dev
+    uses: colindembovsky/reusable-workflows-env-secrets/.github/workflows/reusable-deploy.yml@main
+    with:
+      environment: UAT
+    secrets:
+      PASSWORD: ${{ secrets.PASSWORD }}
+
