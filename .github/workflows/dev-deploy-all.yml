@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
 jobs:
   walm:
-    name: Deploy to UAT
+    name: Deploy to Development
     uses: ./.github/workflows/deploy.yml
     with:
       environment: Development
