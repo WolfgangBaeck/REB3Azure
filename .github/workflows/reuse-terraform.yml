@@ -8,6 +8,7 @@ on:
         type: string
       environment:
         description: "Environment context in which to run the Terraform process."
+        required: true
       secrets:
         ARM_CLIENT_ID: 
           required: true
