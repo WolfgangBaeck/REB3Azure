@@ -12,7 +12,6 @@ variable "settings" {
   }
 }
 
-
 variable "virtual_network" {
   type        = map(any)
   description = "Name of network and address space in CIDR"
