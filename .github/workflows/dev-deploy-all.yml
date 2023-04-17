@@ -3,17 +3,13 @@ on:
   workflow_dispatch:
 jobs:
   delta:
-    - name: Get Repository Code
-      uses: actions/checkout@v3
-    - name: Show Files
-      run: ls -l -R
-      name: Deploy Delta
-      uses: ./.github/workflows/deploy.yml
-      with:
-        environment: Development
-        working-folder: r3dev-delta
-      secrets:
-        inherit
+    name: Deploy Delta
+    uses: ./.github/workflows/deploy.yml
+    with:
+      environment: Development
+      working-folder: r3dev-delta
+    secrets:
+      inherit
   epsilon:
     name: Deploy Epsilon
     uses: ./.github/workflows/deploy.yml

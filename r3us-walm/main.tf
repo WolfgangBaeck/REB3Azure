@@ -16,7 +16,7 @@ locals {
 }
 
 module "base_setup" {
-  source = "./modules"
+  source = "../modules"
   # General Stuff
   location        = var.location
   settings        = var.settings
