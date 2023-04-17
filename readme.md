@@ -1,15 +1,95 @@
-# REB4Modules Repository
-The modules repository is a part of a group of repositories, similar to a hub and spoke arrangement where the hub repository, namely REB4Modules is the central
-repository being used by the spoke repositories. The spoke repositores are those which use the reusable module specifications in the REB4Modules hub repository to build their environment.
-In the current proof of concept state, the spoke repositories are REB4Delta, REB4Epsilon, and REB4Walm all of which use the same set of modules from the REB4Modules repository.
-## Rationale for a multiple repository approach
+# REB3Azure Repository
+The repository represents stands in contrast to the REB4Modules and REB4<Client> repositories in that REB3Azure is a monolithic repository.
+As such, the REB3Azure Repository has all module library anc client information and the necessary workflows, although I'm not making any claim as to how easy it will be to just schedule a workflow for only one client.
+
+## Rationale for implementing both, a monolithic and a multi-repo
 I have looked at the monorepo layout and the polyrepo layout also called multi-repo layout and their advantages and drawbacks and consulted the write-up at https://earthly.dev/blog/monorepo-vs-polyrepo/
 
-Because of the impact that the decision of the repository structure has on releases, issue-tracking, and permissions, I have decided for a poly-repo layout.
-## Workflows
-The idea of the poly-repo structure is that each spoke repository can have its own workflow and deployments are made based on triggering events such as a push or a pull-request in a spoke repository. At the same time, we need to be able to trigger the workflows in the spoke repository if a triggering event occurs in the hub repository. GitHub does not natively support the execution of workflow b in repository B if a push in repository A happens causing a workflow a. This can be accomplished by running cron events in the spoke repositories checking for changes in releases in the hub repository.
+Because of the impact that the decision of the repository structure has on releases, issue-tracking, permissions, and secrets, I have decided for implementing both to personally explore issues related to issue tracking and workflow management.
 
-I have currently decided to delay the introduction of a cron job and to create a general workflow for the REB4Modules repository causing the build for each spoke repository by scheduling a build job for each spoke repository via the following steps for each spoke:
+## Workflows
+The idea of the poly-repo structure is that each spoke repository can have its own workflow and deployments are made based on triggering events such as a push or a pull-request in a spoke repository. With respect to issue tracking and understanding the impact of commits to the repository, the poly-repo is at an advantage when a larger team is at work at the sime time. We also need to be able to trigger the workflows in the spoke repository if a triggering event occurs in the hub repository. GitHub does not natively support the execution of workflow b in repository B if a push in repository A happens causing a workflow a. This can be accomplished by running cron events in the spoke repositories checking for changes in releases in the hub repository.
+
+### Mono-Repo
+In the mono-repo, the scheduling of a workflow for all clients upon a change to a library function is trivial since the use of actions/checkout will deploy the entire repository code on the runners' file system and we can then easily call a reusable workflow to handle each client in turn. The workflow will look like:
+```
+name: Dev-Deploy-All
+on:  
+  workflow_dispatch:
+jobs:
+  delta:
+    name: Deploy Delta
+    uses: ./.github/workflows/deploy.yml
+    with:
+      environment: Development
+      working-folder: r3dev-delta
+    secrets:
+      inherit
+ ..
+ ..
+ ..
+  zeta:
+    name: Deploy Epsilon
+    uses: ./.github/workflows/deploy.yml
+    with:
+      environment: Development
+      working-folder: r3dev-zeta
+    secrets:
+      inherit      
+```
+with the reusable workflow doing all the work. Yes, this will result in multiple downloads of the repository to the runner which I don't know how to avoid if possible:
+
+```
+name: Reusable Deploy
+on: 
+  workflow_call:
+    inputs:
+      environment:
+        description: "Environment context in which to run the Terraform process."
+        required: true    
+        type: string
+      working-folder:
+        description: The name of the client folder to process
+        required: true
+        type: string
+
+jobs:
+  Terraform:
+    name: Terraform deploy ${{ inputs.environment }}
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+
+    env:
+      ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+      ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}    
+
+    defaults:
+      run:
+        shell: bash
+        working-directory: ${{ inputs.working-folder }}
+
+    steps:
+      - name: Get Repository Code
+        uses: actions/checkout@v3
+      # Install the preferred version of Terraform CLI 
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.1.7
+      # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+      - name: Terraform Init   
+        run: terraform init 
+      # Run a terraform apply 
+      - name: Terraform apply
+        id: plan
+        run: terraform apply -auto-approve
+```
+### Multi-Repo
+
+For the hub and spoke repository structure as in REB4Modules and REB4<Client> combination, I have currently decided to delay the introduction of a cron job and to create a general workflow for the REB4Modules repository causing the build for each spoke repository by scheduling a build job for each spoke repository via the following steps for each spoke while downloading the spoke repository in a separate folder. Note that this has implications as to how modules are referenced in either of the chosen repository configurations and it is advisable to understand the structure of the result on the runners' file system to avoid troubles:
+
 ```
 delta:
     runs-on: ubuntu-latest
