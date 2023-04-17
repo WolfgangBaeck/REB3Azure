@@ -1,11 +1,11 @@
 resource "random_string" "random_suffix" {
-  length  = 6
+  length  = 8
   special = false
   upper   = false
 }
 
 resource "azurerm_storage_account" "accntpub" {
-  name                            = "${var.settings.basestack}${var.settings.environemnt}${random_string.random_suffix.result}accntpub"
+  name                            = "${var.settings.basestack}${var.settings.environemnt}${random_string.random_suffix.result}pub"
   resource_group_name             = var.resource_group_name
   location                        = var.location
   account_tier                    = "Standard"
@@ -100,7 +100,7 @@ resource "azurerm_storage_container" "static" {
 }
 
 resource "azurerm_storage_account" "accntpriv" {
-  name                            = "${var.settings.basestack}${var.settings.environemnt}${random_string.random_suffix.result}accntpriv"
+  name                            = "${var.settings.basestack}${var.settings.environemnt}${random_string.random_suffix.result}priv"
   resource_group_name             = var.resource_group_name
   location                        = var.location
   account_tier                    = "Standard"

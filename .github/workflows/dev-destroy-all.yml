@@ -2,6 +2,14 @@ name: Dev-Destroy-All
 on:  
   workflow_dispatch:
 jobs:
+  delta:
+    name: Destroy Delta
+    uses: ./.github/workflows/destroy.yml
+    with:
+      environment: Development
+      working-folder: r3dev-delta
+    secrets:
+      inherit
   epsilon:
     name: Destroy Epsilon
     uses: ./.github/workflows/destroy.yml
@@ -10,3 +18,115 @@ jobs:
       working-folder: r3dev-epsilon
     secrets:
       inherit      
+  zeta:
+    name: Destroy Zeta
+    uses: ./.github/workflows/destroy.yml
+    with:
+      environment: Development
+      working-folder: r3dev-zeta
+    secrets:
+      inherit
+  ahld:
+    name: Destroy AHLD
+    uses: ./.github/workflows/destroy.yml
+    with:
+      environment: Development
+      working-folder: r3us-ahld
+    secrets:
+      inherit
+  albt:
+    name: Destroy ALBT
+    uses: ./.github/workflows/destroy.yml
+    with:
+      environment: Development
+      working-folder: r3us-albt
+    secrets:
+      inherit
+  brcp:
+    name: Destroy BRCP
+    uses: ./.github/workflows/destroy.yml
+    with:
+      environment: Development
+      working-folder: r3us-brcp
+    secrets:
+      inherit
+  gmi:
+    name: Destroy GMI
+    uses: ./.github/workflows/destroy.yml
+    with:
+      environment: Development
+      working-folder: r3us-gmi
+    secrets:
+      inherit
+  harr:
+    name: Destroy Harr
+    uses: ./.github/workflows/destroy.yml
+    with:
+      environment: Development
+      working-folder: r3us-harr
+    secrets:
+      inherit
+  krog:
+    name: Destroy Krog
+    uses: ./.github/workflows/destroy.yml
+    with:
+      environment: Development
+      working-folder: r3us-krog
+    secrets:
+      inherit
+  prc:
+    name: Destroy PRC
+    uses: ./.github/workflows/destroy.yml
+    with:
+      environment: Development
+      working-folder: r3us-prc
+    secrets:
+      inherit
+  srai:
+    name: Destroy SRAI
+    uses: ./.github/workflows/destroy.yml
+    with:
+      environment: Development
+      working-folder: r3us-srai
+    secrets:
+      inherit
+  stgalbt:
+    name: Destroy StgAlbt
+    uses: ./.github/workflows/destroy.yml
+    with:
+      environment: Development
+      working-folder: r3us-stgalbt
+    secrets:
+      inherit
+  stgsams:
+    name: Destroy StgSams
+    uses: ./.github/workflows/destroy.yml
+    with:
+      environment: Development
+      working-folder: r3us-stgsams
+    secrets:
+      inherit
+  walm:
+    name: Destroy WALM
+    uses: ./.github/workflows/destroy.yml
+    with:
+      environment: Development
+      working-folder: r3us-walm
+    secrets:
+      inherit
+  weis:
+    name: Destroy Weis
+    uses: ./.github/workflows/destroy.yml
+    with:
+      environment: Development
+      working-folder: r3us-weis
+    secrets:
+      inherit
+  wmdp:
+    name: Destroy WMDP
+    uses: ./.github/workflows/destroy.yml
+    with:
+      environment: Development
+      working-folder: r3us-wmdp
+    secrets:
+      inherit
