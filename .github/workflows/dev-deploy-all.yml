@@ -13,7 +13,7 @@ jobs:
         environment: Development
         working-folder: r3dev-delta
       secrets:
-      inherit
+        inherit
   epsilon:
     name: Deploy Epsilon
     uses: ./.github/workflows/deploy.yml
