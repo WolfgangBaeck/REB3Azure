@@ -1,0 +1,13 @@
+name: Client Folder Workflow
+on:  
+  push:
+    paths:
+      - 'r3dev*/**'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Display Environment
+        run: echo "${{ github.event.head_commit.modified }}"
