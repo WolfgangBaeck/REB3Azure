@@ -1,8 +1,8 @@
 terraform {
     backend "azurerm" {
-    resource_group_name  = "r3uswalm-tfstate-rg"
-    storage_account_name = "r3uswalmtftp885kev"
-    container_name       = "core-tfstate"
+    resource_group_name  = "terraform-tfstate-rg"
+    storage_account_name = "terraformtfv78lno1s"
+    container_name       = "epsilon-tfstate"
     key                  = "actions.tfstate"
   }
   required_providers {
