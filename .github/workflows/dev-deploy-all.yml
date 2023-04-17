@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
 jobs:
   delta:
-    name: Deploy development
+    name: Deploy Delta
     uses: ./.github/workflows/deploy.yml
     with:
       environment: Development
@@ -11,7 +11,7 @@ jobs:
     secrets:
       inherit
   epsilon:
-    name: Deploy development
+    name: Deploy Epsilon
     uses: ./.github/workflows/deploy.yml
     with:
       environment: Development
@@ -19,7 +19,7 @@ jobs:
     secrets:
       inherit      
   zeta:
-    name: Deploy development
+    name: Deploy Zeta
     uses: ./.github/workflows/deploy.yml
     with:
       environment: Development
@@ -27,7 +27,7 @@ jobs:
     secrets:
       inherit
   ahld:
-    name: Deploy development
+    name: Deploy AHLD
     uses: ./.github/workflows/deploy.yml
     with:
       environment: Development
@@ -35,7 +35,7 @@ jobs:
     secrets:
       inherit
   albt:
-    name: Deploy development
+    name: Deploy ALBT
     uses: ./.github/workflows/deploy.yml
     with:
       environment: Development
@@ -43,7 +43,7 @@ jobs:
     secrets:
       inherit
   brcp:
-    name: Deploy development
+    name: Deploy BRCP
     uses: ./.github/workflows/deploy.yml
     with:
       environment: Development
@@ -51,7 +51,7 @@ jobs:
     secrets:
       inherit
   gmi:
-    name: Deploy development
+    name: Deploy GMI
     uses: ./.github/workflows/deploy.yml
     with:
       environment: Development
@@ -59,7 +59,7 @@ jobs:
     secrets:
       inherit
   harr:
-    name: Deploy development
+    name: Deploy Harr
     uses: ./.github/workflows/deploy.yml
     with:
       environment: Development
@@ -67,7 +67,7 @@ jobs:
     secrets:
       inherit
   krog:
-    name: Deploy development
+    name: Deploy Krog
     uses: ./.github/workflows/deploy.yml
     with:
       environment: Development
@@ -75,7 +75,7 @@ jobs:
     secrets:
       inherit
   prc:
-    name: Deploy development
+    name: Deploy PRC
     uses: ./.github/workflows/deploy.yml
     with:
       environment: Development
@@ -83,7 +83,7 @@ jobs:
     secrets:
       inherit
   srai:
-    name: Deploy development
+    name: Deploy SRAI
     uses: ./.github/workflows/deploy.yml
     with:
       environment: Development
@@ -91,7 +91,7 @@ jobs:
     secrets:
       inherit
   stgalbt:
-    name: Deploy development
+    name: Deploy StgALBT
     uses: ./.github/workflows/deploy.yml
     with:
       environment: Development
@@ -99,7 +99,7 @@ jobs:
     secrets:
       inherit
   stgsams:
-    name: Deploy development
+    name: Deploy StgSams
     uses: ./.github/workflows/deploy.yml
     with:
       environment: Development
@@ -107,7 +107,7 @@ jobs:
     secrets:
       inherit
   walm:
-    name: Deploy development
+    name: Deploy WALM
     uses: ./.github/workflows/deploy.yml
     with:
       environment: Development
@@ -115,7 +115,7 @@ jobs:
     secrets:
       inherit
   weis:
-    name: Deploy development
+    name: Deploy Weis
     uses: ./.github/workflows/deploy.yml
     with:
       environment: Development
@@ -123,7 +123,7 @@ jobs:
     secrets:
       inherit
   wmdp:
-    name: Deploy development
+    name: Deploy Wmdp
     uses: ./.github/workflows/deploy.yml
     with:
       environment: Development

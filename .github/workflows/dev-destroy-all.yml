@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
 jobs:
   delta:
-    name: Destroy development
+    name: Destroy Delta
     uses: ./.github/workflows/destroy.yml
     with:
       environment: Development
@@ -11,7 +11,7 @@ jobs:
     secrets:
       inherit
   epsilon:
-    name: Destroy development
+    name: Destroy Epsilon
     uses: ./.github/workflows/destroy.yml
     with:
       environment: Development
@@ -19,7 +19,7 @@ jobs:
     secrets:
       inherit      
   zeta:
-    name: Destroy development
+    name: Destroy Zeta
     uses: ./.github/workflows/destroy.yml
     with:
       environment: Development
@@ -27,7 +27,7 @@ jobs:
     secrets:
       inherit
   ahld:
-    name: Destroy development
+    name: Destroy AHLD
     uses: ./.github/workflows/destroy.yml
     with:
       environment: Development
@@ -35,7 +35,7 @@ jobs:
     secrets:
       inherit
   albt:
-    name: Destroy development
+    name: Destroy ALBT
     uses: ./.github/workflows/destroy.yml
     with:
       environment: Development
@@ -43,7 +43,7 @@ jobs:
     secrets:
       inherit
   brcp:
-    name: Destroy development
+    name: Destroy BRCP
     uses: ./.github/workflows/destroy.yml
     with:
       environment: Development
@@ -51,7 +51,7 @@ jobs:
     secrets:
       inherit
   gmi:
-    name: Destroy development
+    name: Destroy GMI
     uses: ./.github/workflows/destroy.yml
     with:
       environment: Development
@@ -59,7 +59,7 @@ jobs:
     secrets:
       inherit
   harr:
-    name: Destroy development
+    name: Destroy Harr
     uses: ./.github/workflows/destroy.yml
     with:
       environment: Development
@@ -67,7 +67,7 @@ jobs:
     secrets:
       inherit
   krog:
-    name: Destroy development
+    name: Destroy Krog
     uses: ./.github/workflows/destroy.yml
     with:
       environment: Development
@@ -75,7 +75,7 @@ jobs:
     secrets:
       inherit
   prc:
-    name: Destroy development
+    name: Destroy PRC
     uses: ./.github/workflows/destroy.yml
     with:
       environment: Development
@@ -83,7 +83,7 @@ jobs:
     secrets:
       inherit
   srai:
-    name: Destroy development
+    name: Destroy SRAI
     uses: ./.github/workflows/destroy.yml
     with:
       environment: Development
@@ -91,7 +91,7 @@ jobs:
     secrets:
       inherit
   stgalbt:
-    name: Destroy development
+    name: Destroy StgAlbt
     uses: ./.github/workflows/destroy.yml
     with:
       environment: Development
@@ -99,7 +99,7 @@ jobs:
     secrets:
       inherit
   stgsams:
-    name: Destroy development
+    name: Destroy StgSams
     uses: ./.github/workflows/destroy.yml
     with:
       environment: Development
@@ -107,7 +107,7 @@ jobs:
     secrets:
       inherit
   walm:
-    name: Destroy development
+    name: Destroy WALM
     uses: ./.github/workflows/destroy.yml
     with:
       environment: Development
@@ -115,7 +115,7 @@ jobs:
     secrets:
       inherit
   weis:
-    name: Destroy development
+    name: Destroy Weis
     uses: ./.github/workflows/destroy.yml
     with:
       environment: Development
@@ -123,7 +123,7 @@ jobs:
     secrets:
       inherit
   wmdp:
-    name: Destroy development
+    name: Destroy WMDP
     uses: ./.github/workflows/destroy.yml
     with:
       environment: Development
