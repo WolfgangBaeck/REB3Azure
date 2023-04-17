@@ -2,6 +2,18 @@ name: Dev-Deploy-All
 on:  
   workflow_dispatch:
 jobs:
+  delta:
+    - name: Get Repository Code
+      uses: actions/checkout@v3
+    - name: Show Files
+      run: ls -l -R
+      name: Deploy Delta
+      uses: ./.github/workflows/deploy.yml
+      with:
+        environment: Development
+        working-folder: r3dev-delta
+      secrets:
+        inherit
   epsilon:
     name: Deploy Epsilon
     uses: ./.github/workflows/deploy.yml
@@ -10,3 +22,115 @@ jobs:
       working-folder: r3dev-epsilon
     secrets:
       inherit      
+  zeta:
+    name: Deploy Zeta
+    uses: ./.github/workflows/deploy.yml
+    with:
+      environment: Development
+      working-folder: r3dev-zeta
+    secrets:
+      inherit
+  ahld:
+    name: Deploy AHLD
+    uses: ./.github/workflows/deploy.yml
+    with:
+      environment: Development
+      working-folder: r3us-ahld
+    secrets:
+      inherit
+  albt:
+    name: Deploy ALBT
+    uses: ./.github/workflows/deploy.yml
+    with:
+      environment: Development
+      working-folder: r3us-albt
+    secrets:
+      inherit
+  brcp:
+    name: Deploy BRCP
+    uses: ./.github/workflows/deploy.yml
+    with:
+      environment: Development
+      working-folder: r3us-brcp
+    secrets:
+      inherit
+  gmi:
+    name: Deploy GMI
+    uses: ./.github/workflows/deploy.yml
+    with:
+      environment: Development
+      working-folder: r3us-gmi
+    secrets:
+      inherit
+  harr:
+    name: Deploy Harr
+    uses: ./.github/workflows/deploy.yml
+    with:
+      environment: Development
+      working-folder: r3us-harr
+    secrets:
+      inherit
+  krog:
+    name: Deploy Krog
+    uses: ./.github/workflows/deploy.yml
+    with:
+      environment: Development
+      working-folder: r3us-krog
+    secrets:
+      inherit
+  prc:
+    name: Deploy PRC
+    uses: ./.github/workflows/deploy.yml
+    with:
+      environment: Development
+      working-folder: r3us-prc
+    secrets:
+      inherit
+  srai:
+    name: Deploy SRAI
+    uses: ./.github/workflows/deploy.yml
+    with:
+      environment: Development
+      working-folder: r3us-srai
+    secrets:
+      inherit
+  stgalbt:
+    name: Deploy StgALBT
+    uses: ./.github/workflows/deploy.yml
+    with:
+      environment: Development
+      working-folder: r3us-stgalbt
+    secrets:
+      inherit
+  stgsams:
+    name: Deploy StgSams
+    uses: ./.github/workflows/deploy.yml
+    with:
+      environment: Development
+      working-folder: r3us-stgsams
+    secrets:
+      inherit
+  walm:
+    name: Deploy WALM
+    uses: ./.github/workflows/deploy.yml
+    with:
+      environment: Development
+      working-folder: r3us-walm
+    secrets:
+      inherit
+  weis:
+    name: Deploy Weis
+    uses: ./.github/workflows/deploy.yml
+    with:
+      environment: Development
+      working-folder: r3us-weis
+    secrets:
+      inherit
+  wmdp:
+    name: Deploy Wmdp
+    uses: ./.github/workflows/deploy.yml
+    with:
+      environment: Development
+      working-folder: r3us-wmdp
+    secrets:
+      inherit
