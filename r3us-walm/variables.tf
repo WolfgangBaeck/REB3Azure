@@ -85,7 +85,6 @@ variable "private_containers" {
   description = "Name of the individual containers for the private storage account"
 }
 
-
 variable "public_containers" {
   type        = list(string)
   default     = ["Scripts", "Data"]
