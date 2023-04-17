@@ -4,6 +4,8 @@ variable "location" {
   default     = "East US 2"
 }
 
+
+
 variable "settings" {
   type = map(string)
   default = {
