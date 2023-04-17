@@ -1,28 +1,30 @@
 
 output "gateway_ip" {
-  value =  module.client_network.gateway_ip.ip_address
+  value =  module.base_setup.gateway_ip
 }
 
 output "storage_accnt_pub_name" {
-  value = module.storage.accntpub.name
+  value = module.base_setup.storage_accnt_pub_name
 }
 
 output "container_static_name" {
-  value = { for id in keys(module.storage.cont_static) : id =>  module.storage.cont_static[id].name}
+  value = module.base_setup.container_static_name
 }
 
 output "container_media_name" {
-  value = { for id in keys(module.storage.cont_media) : id =>  module.storage.cont_media[id].name}
+  value = module.base_setup.container_media_name
 }
 
 output "subnets" {
-  value = { for id in keys(module.client_network.subnets) : id => module.client_network.subnets[id].id}
+  value = module.base_setup.subnets
 }
 
 output "db_subnet_id" {
-  value = module.client_network.subnets["DB-Delegated"].id
+  value = module.base_setup.db_subnet_id
 }
 
+/*
 output "databases" {
   value = {for id in keys(module.dbservers.databases) : id => module.dbservers.databases[id].id }
 }
+*/
