@@ -1,8 +1,3 @@
-variable "subscription_id" {
-  type = string
-  description = "The azure subscription id for this retail client ideally provided via .tfvars file"
-}
-
 variable "location" {
   type        = string
   description = "The region for the deployment"
