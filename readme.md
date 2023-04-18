@@ -203,9 +203,9 @@ terraform {
 }
 ```
 ## Statefile Lock Conflict Resolution
-The terraform state for each client is currently maintained in an Azure storage account unless and until we may move to Terraform Cloud. The storage accounts are required to be in the same subscription as the client subscription, in it's own resource group,  and currently the account naming condition is r3us<clientname><randomstring> all lower case, no special characters, no spaces. 
+The terraform state for each client is currently maintained in an Azure storage account unless and until we may move to Terraform Cloud. The storage account is not required to be in the same subscription as the client subscription, just the name needs to be globally unique all lower case, no special characters, no spaces. 
 The naming for the resource group is currently r3us<clientname>-tfstate-rg.
-Each Azure storage account has a blob container named <client>-tfstate and the blob is named actions.tfstate. The Terraform creation script is:
+The Azure storage account has a blob container on a per client basis named <client>-tfstate and the blob is named actions.tfstate. The Terraform creation script is:
 ```
 # Generate a random storage name
 resource "random_string" "tf-name" {
