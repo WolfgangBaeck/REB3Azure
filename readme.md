@@ -1,11 +1,11 @@
 # REB3Azure Repository
-The repository represents stands in contrast to the REB4Modules and REB4<Client> repositories in that REB3Azure is a monolithic repository.
-As such, the REB3Azure Repository has all module library anc client information and the necessary workflows, although I'm not making any claim as to how easy it will be to just schedule a workflow for only one client.
+This repository stands in contrast to the REB4Modules and REB4<Client> repositories in that REB3Azure is a monolithic repository.
+As such, the REB3Azure Repository has all the module library and client information along with the necessary workflows, although I'm not making any claim as to how easy it will be to just schedule a workflow for only one client.
 
 ## Rationale for implementing both, a monolithic and a multi-repo
 I have looked at the monorepo layout and the polyrepo layout also called multi-repo layout and their advantages and drawbacks and consulted the write-up at https://earthly.dev/blog/monorepo-vs-polyrepo/
 
-Because of the impact that the decision of the repository structure has on releases, issue-tracking, permissions, and secrets, I have decided for implementing both to personally explore issues related to issue tracking and workflow management.
+Because of the impact that the decision of the repository structure has on releases, issue-tracking, permissions, and secrets, I have decided for implementing both, to personally explore issues related to issue tracking and workflow management.
 
 ## Workflows
 The idea of the poly-repo structure is that each spoke repository can have its own workflow and deployments are made based on triggering events such as a push or a pull-request in a spoke repository. With respect to issue tracking and understanding the impact of commits to the repository, the poly-repo is at an advantage when a larger team is at work at the sime time. We also need to be able to trigger the workflows in the spoke repository if a triggering event occurs in the hub repository. GitHub does not natively support the execution of workflow b in repository B if a push in repository A happens causing a workflow a. This can be accomplished by running cron events in the spoke repositories checking for changes in releases in the hub repository.
@@ -19,6 +19,7 @@ on:
 jobs:
   delta:
     name: Deploy Delta
+  # this is a reusable workflow with input parameters!
     uses: ./.github/workflows/deploy.yml
     with:
       environment: Development
@@ -37,7 +38,7 @@ jobs:
     secrets:
       inherit      
 ```
-with the reusable workflow doing all the work. Yes, this will result in multiple downloads of the repository to the runner which I don't know how to avoid if possible:
+and such, the reusable workflow is doing all the work. Yes, this will result in multiple downloads of the repository to the runner(s) which I don't know how to avoid if possible:
 
 ```
 name: Reusable Deploy
@@ -58,7 +59,8 @@ jobs:
     name: Terraform deploy ${{ inputs.environment }}
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
-
+  
+    # these are the secrets based on the environment!
     env:
       ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
       ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
@@ -147,7 +149,7 @@ jobs:
   ...
   Walm
 ```
-This implies that all the workflow jobs share the same secrets. If this isn't appropriate because we have different subscription ids for each client repository which is trivial to set in each client repository and the respective workflow, we will have to now employ job specific secrets in the REB4Module repository:
+This implies that all the workflow jobs share the same secrets. If this isn't appropriate because we want to have different subscription ids for each client repository which is trivial to set in each client repository and the respective workflow, we will now have to employ job specific secrets in the REB4Module repository:
 ```
 name: Deploy All
 on:
@@ -170,22 +172,26 @@ jobs:
   ...
   Walm
 ```
-It is obvious that this can result in a number of problems since we have the information now in more than one place and for this reason, GitHub provides the definition of an environment such as "UAT", "PROD", or anything else you may need and with this, you can specify secrets with the same name but different values for each environment. At the moment, the repositories are not set up with environments.
-# Spoke Repository
+It is obvious that this can result in a number of problems since we have the information now in more than one place. While this seems to be a disadvantage for a multi-repo situation where from the hub we want to schedule the spokes, it isn't any different for the monolitic repository since the only difference between environment secrets can be at the "environment" level such as "Prod", "Dev", "UAT" and not on a per folder basis where each folder stands for a different client.
+# Spoke Repository or additional Client Folders
 Spoke repositories are all those that utilize the REB4Module repository to implement the Terraform code necessary for a complete client deployment. Examples are REB4Walm and REB4Kroger for example. Spoke repositories have their own deployment and destroy definitions as well as their own set of secrets holding the necessary information for tenent, client, subscription, and secrets which must be kept in synch with the REB4Module secrets if the intent to run all spoke deployments automatically upon a deployment in the REB4Module repository.
 ## Spoke Repository Creation
 When creating a repository for a new client, several steps have to be completed in the right order:
 1. Creating the client repository and uploading the terraform code for the client
 2. Adding the secrets for the action workflow to the repository, typically tenantid, clientid, clientsecret, subscriptionid.
 3. Creating the backend Terraform state repository as an Azure storage account. The creation of the state storage account presents us with a chicken - egg problem and will therefore most like stay a separate terraform or powershell script.
-4. Updating the client's provider.tf file with the appropriate storage account information (the example below is for WALM):
+4. Updating the client's provider.tf file with the appropriate storage account information.
 
+## Additional Client folder for Mono-Repository
+  
+When a new client needs to be on-boarded, we will need to create an additional client folder in REB3Azure by duplicating all that exists in an existing client folder but we need to update the provider.tf file accordingly. I have currently created a StateAccount terraform application that creates one account and a container for each client:
+  
 ```
 terraform {
     backend "azurerm" {
-    resource_group_name  = "r3uswalm-tfstate-rg"
-    storage_account_name = "r3uswalmtftp885kev"
-    container_name       = "core-tfstate"
+    resource_group_name  = "terraform-tfstate-rg"
+    storage_account_name = "terraformtfv78lno1s"
+    container_name       = "walm-tfstate"
     key                  = "actions.tfstate"
   }
   required_providers {
@@ -199,7 +205,7 @@ terraform {
 ## Statefile Lock Conflict Resolution
 The terraform state for each client is currently maintained in an Azure storage account unless and until we may move to Terraform Cloud. The storage accounts are required to be in the same subscription as the client subscription, in it's own resource group,  and currently the account naming condition is r3us<clientname><randomstring> all lower case, no special characters, no spaces. 
 The naming for the resource group is currently r3us<clientname>-tfstate-rg.
-Each Azure storage account has a blob container named core-tfstate and the blob is named actions.tfstate. The Terraform creation script is:
+Each Azure storage account has a blob container named <client>-tfstate and the blob is named actions.tfstate. The Terraform creation script is:
 ```
 # Generate a random storage name
 resource "random_string" "tf-name" {
@@ -211,7 +217,7 @@ resource "random_string" "tf-name" {
 }
 # Create a Resource Group for the Terraform State File
 resource "azurerm_resource_group" "state-rg" {
-  name = "${lower(var.client)}-tfstate-rg"
+  name = "terraform-tfstate-rg"
   location = var.location
   
   lifecycle {
@@ -224,7 +230,7 @@ resource "azurerm_resource_group" "state-rg" {
 # Create a Storage Account for the Terraform State File
 resource "azurerm_storage_account" "state-sta" {
   depends_on = [azurerm_resource_group.state-rg]  
-  name = "${lower(var.client)}tf${random_string.tf-name.result}"
+  name = "terraformtf${random_string.tf-name.result}"
   resource_group_name = azurerm_resource_group.state-rg.name
   location = azurerm_resource_group.state-rg.location
   account_kind = "StorageV2"
@@ -238,13 +244,18 @@ resource "azurerm_storage_account" "state-sta" {
   }  
   
   tags = {
-    client = var.client
+    name = "terraform"
   }
 }
-# Create a Storage Container for the Core State File
+
+locals {
+  clients = ["delta","epsilon","zeta","ahld","albt","brcp","gmi","harr","krog","prc","srai","stgalbt","stgsams","walm","weis","wmdp"]
+}
+# Create a Storage Container for the State File
 resource "azurerm_storage_container" "core-container" {
+  for_each = toset(local.clients)
   depends_on = [azurerm_storage_account.state-sta]  
-  name = "core-tfstate"
+  name = "${each.value}-tfstate"
   storage_account_name = azurerm_storage_account.state-sta.name
 }
 ```
