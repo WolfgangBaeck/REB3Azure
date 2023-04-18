@@ -259,7 +259,7 @@ resource "azurerm_storage_container" "core-container" {
   storage_account_name = azurerm_storage_account.state-sta.name
 }
 ```
-When the state file has the "LEASE STATUS" of "unlocked" a Terraform process can run and require the exclusive lock on this state file. If the state is "locked" then either a process is currently running or a process may have been deleted and therefore wasn't able to release the lock. In that case, one needs to go to the contain end break the lease:
+When the state file has the "LEASE STATUS" of "unlocked" a Terraform process can run and require the exclusive lock on this state file. If the state is "locked" then either a process is currently running or a process may have been deleted and therefore wasn't able to release the lock. In that case, one needs to go to the container and break the lease:
 
 ![screenshot](breakthelease.png)
 
@@ -285,9 +285,23 @@ provider.tf
 output.tf
 variables.tf
 ```
-
-In all client workflow yaml files reusable workflows are called from the central module repository REB4Modules in this way:
+The same concept applies to the mono-repository and I haven't provided all workflows yet. The major difference in the mono-repository is that I have used reusable workflows instead of a composite workflow action just to play with the different approach.
+  
+In all client workflow yaml files composite workflows are called from the central module repository REB4Modules in this way:
 ```
     - name: Run Terraform Deploy Action
       uses: ./modules/.github/actions/terraformdeploy
 ```
+and reusable workflow are colled:
+  
+```
+    zeta:
+    name: Deploy Zeta
+    uses: ./.github/workflows/deploy.yml
+    with:
+      environment: Development
+      working-folder: r3dev-zeta
+    secrets:
+      inherit
+```
+  I hope this helps!
